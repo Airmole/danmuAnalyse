@@ -53,18 +53,25 @@ def readDatas(file):
 def analyseUserTop(datas):
     result = {}
     analyse = {}
+    skipNickname = ['伊利专属智能助手', '原来我不是白羊座']
     for data in datas:
+        if data['nickname'] in skipNickname:
+            continue
         isIn = data['nickname'] in analyse.keys()
         if not isIn:
             analyse[data['nickname']] = 0
     for data in datas:
+        if data['nickname'] in skipNickname:
+            continue
         isIn = data['nickname'] in analyse.keys()
         if isIn:
             analyse[data['nickname']] += 1
         else:
             analyse[data['nickname']] = 0
-    result['label'] = list(analyse.keys())
-    result['value'] = list(analyse.values())
+    d_order = sorted(analyse.items(), key=lambda x: x[1], reverse=True)
+    sortedDict = dict(d_order)
+    result['label'] = list(sortedDict.keys())
+    result['value'] = list(sortedDict.values())
     return result
 
 def analyseTime(datas):
@@ -106,14 +113,26 @@ def wordcloud(filename, datas):
     filename = filename[13:21] + '.png'
     outputPath = './wordcloud/'
     allContent = ''
+    skipNickname = ['伊利专属智能助手', '原来我不是白羊座']
     for data in datas:
+        if data['content'].find('我就是天选之人') >= 0:
+            continue
+        if data['content'].find('点点红包抽礼物') >= 0:
+            continue
+        if data['nickname'] in skipNickname:
+            continue
         allContent += data['content']
+    # print(allContent)
     word_list = jieba.cut(allContent)
     result = " ".join(word_list)  # 分词用空格隔开
+    result = result.replace('的', '').replace('我', '').replace('你', '').replace('啊', '').replace('了', ''). \
+        replace('就', '').replace('是', '').replace('这', '').replace('不', '').replace('都', '').replace('好', ''). \
+        replace('有', '').replace('要', '').replace('没', '').replace('还', '').replace('也', '').replace('个', '').\
+        replace('那', '')
     stylecloud.gen_stylecloud(
         text=result,  # 上面分词的结果作为文本传给text参数
         size=512,
-        font_path='msyh.ttc',  # 字体设置
+        font_path='STHeiti Light.ttc',  # 字体设置
         palette='cartocolors.qualitative.Pastel_7',  # 调色方案选取，从palettable里选择
         gradient='horizontal',  # 渐变色方向选了垂直方向
         icon_name='fas fa-heart',  # 蒙版选取，从Font Awesome里选
