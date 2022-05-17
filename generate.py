@@ -2,6 +2,8 @@ import json
 import os
 import jieba
 import stylecloud
+from numpy.core.defchararray import isdigit
+
 
 def main(file_dir):
     for root, dirs, files in os.walk(file_dir):
@@ -40,6 +42,8 @@ def readDatas(file):
         for i in array: #遍历array中的每个元素
             dict = {}
             time = i[4:9]
+            if time == '' or len(time) != 5:
+                continue
             dict['time'] = time
             nicknameStart = i.find(' : ') + 3
             nicknameEnd = i.find(' 说：')
@@ -80,7 +84,10 @@ def analyseTime(datas):
     for item in range(24):
             result[str(item)+':00'] = 0
     for data in datas:
-        hour = data['time'][0:2]+':00'
+        hour = data['time'][0:2]
+        if hour == "" or (not isdigit(hour)):
+            continue
+        hour = hour +':00'
         isIn = hour in result.keys()
         if isIn:
             result[hour] += 1
@@ -88,6 +95,7 @@ def analyseTime(datas):
             result[hour] = 0
     res['label'] = list(result.keys())
     res['value'] = list(result.values())
+    # print(result)
     return res
 
 def analysePie(userRank):
