@@ -76,13 +76,17 @@ def analyseUserTop(datas):
     sortedDict = dict(d_order)
     result['label'] = list(sortedDict.keys())
     result['value'] = list(sortedDict.values())
+    result['json'] = sortedDict
     return result
 
 def analyseTime(datas):
     res = {}
     result = {}
     for item in range(24):
-            result[str(item)+':00'] = 0
+        if item < 10:
+            result['0' + str(item) + ':00'] = 0
+        else:
+            result[str(item) + ':00'] = 0
     for data in datas:
         hour = data['time'][0:2]
         if hour == "" or (not isdigit(hour)):
@@ -95,6 +99,7 @@ def analyseTime(datas):
             result[hour] = 0
     res['label'] = list(result.keys())
     res['value'] = list(result.values())
+    res['json'] = result
     # print(result)
     return res
 
@@ -140,7 +145,7 @@ def wordcloud(filename, datas):
     stylecloud.gen_stylecloud(
         text=result,  # 上面分词的结果作为文本传给text参数
         size=512,
-        font_path='msyh.ttc',  # 字体设置
+        font_path='STHeiti Medium.ttc',  # 字体设置
         palette='cartocolors.qualitative.Pastel_7',  # 调色方案选取，从palettable里选择
         gradient='horizontal',  # 渐变色方向选了垂直方向
         icon_name='fas fa-heart',  # 蒙版选取，从Font Awesome里选
