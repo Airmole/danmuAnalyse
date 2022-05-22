@@ -141,15 +141,16 @@ def wordcloud(filename, datas):
     result = result.replace('的', '').replace('我', '').replace('你', '').replace('啊', '').replace('了', ''). \
         replace('就', '').replace('是', '').replace('这', '').replace('不', '').replace('都', '').replace('好', ''). \
         replace('有', '').replace('要', '').replace('没', '').replace('还', '').replace('也', '').replace('个', '').\
-        replace('那', '').replace('谢谢', '')
+        replace('那', '').replace('谢谢', '').replace('吗', '').replace('吧', '')
     stylecloud.gen_stylecloud(
         text=result,  # 上面分词的结果作为文本传给text参数
         size=512,
-        font_path='STHeiti Medium.ttc',  # 字体设置
+        font_path='./font.ttf',  # 字体设置
         palette='cartocolors.qualitative.Pastel_7',  # 调色方案选取，从palettable里选择
         gradient='horizontal',  # 渐变色方向选了垂直方向
         icon_name='fas fa-heart',  # 蒙版选取，从Font Awesome里选
-        output_name=outputPath+filename)  # 输出词云图
+        output_name=outputPath+filename
+    )  # 输出词云图
 
 
 dataPath = './data'
