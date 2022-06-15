@@ -23,7 +23,7 @@ def main(file_dir):
 def save2Js(filename, userRank, timeline, pie):
     result = {}
     filename = filename[13:21] + '.json'
-    outputPath = './output/'
+    outputPath = '../ely-analyse/static/json/'
     result['user_rank'] = userRank
     result['timeline'] = timeline
     result['pie'] = pie
@@ -124,7 +124,7 @@ def analysePie(userRank):
 
 def wordcloud(filename, datas):
     filename = filename[13:21] + '.png'
-    outputPath = './wordcloud/'
+    outputPath = '../ely-analyse/static/images/'
     allContent = ''
     skipNickname = ['伊利专属智能助手', '原来我不是白羊座']
     for data in datas:
@@ -141,7 +141,7 @@ def wordcloud(filename, datas):
     result = result.replace('的', '').replace('我', '').replace('你', '').replace('啊', '').replace('了', ''). \
         replace('就', '').replace('是', '').replace('这', '').replace('不', '').replace('都', '').replace('好', ''). \
         replace('有', '').replace('要', '').replace('没', '').replace('还', '').replace('也', '').replace('个', '').\
-        replace('那', '').replace('谢谢', '').replace('吗', '').replace('吧', '')
+        replace('那', '').replace('谢谢', '').replace('吗', '').replace('吧', '').replace('欢迎', '')
     stylecloud.gen_stylecloud(
         text=result,  # 上面分词的结果作为文本传给text参数
         size=512,
@@ -149,7 +149,8 @@ def wordcloud(filename, datas):
         palette='cartocolors.qualitative.Pastel_7',  # 调色方案选取，从palettable里选择
         gradient='horizontal',  # 渐变色方向选了垂直方向
         icon_name='fas fa-heart',  # 蒙版选取，从Font Awesome里选
-        output_name=outputPath+filename
+        output_name=outputPath+filename,
+        background_color='#0E1B4B'
     )  # 输出词云图
 
 
