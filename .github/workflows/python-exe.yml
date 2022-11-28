@@ -38,4 +38,7 @@ jobs:
       uses: JackMcKew/pyinstaller-action-windows@v0.1.2
       with:
         path: ./
+        pypi_url: https://pypi.tuna.tsinghua.edu.cn/
+        # Specify a custom URL for PYPI Index
+        pypi_index_url: https://pypi.tuna.tsinghua.edu.cn/simple
 
