@@ -37,9 +37,5 @@ jobs:
     - name: PyInstaller Windows record
       uses: JackMcKew/pyinstaller-action-windows@v0.1.2
       with:
-        path: ./record.py
-    - name: PyInstaller Windows analyse
-      uses: JackMcKew/pyinstaller-action-windows@v0.1.2
-      with:
-        path: ./analyse.py
+        path: ./
 
