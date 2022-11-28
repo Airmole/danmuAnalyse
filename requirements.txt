@@ -1,4 +1,4 @@
 jieba~=0.42.1
 stylecloud~=0.5.2
-numpy~=1.23.3
+numpy~=1.21.0
 bilibili-api-python~=13.3.0
